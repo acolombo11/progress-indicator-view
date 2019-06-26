@@ -35,18 +35,8 @@ class ProgressIndicatorView @JvmOverloads constructor(
 
             when (state) {
                 State.STOP -> {
-                    if (realStep < step -1) {
-                        step--
-                        state = State.PREV
-                    } else if (realStep > step -1) {
-                        step++
-                        state = State.NEXT
-                    } else if (progress > min && progress < max) {
-                        if (prevState == State.PREV ) {
-                            state = State.PREV
-                        } else if (prevState == State.NEXT) {
-                            state = State.NEXT
-                        }
+                    if (progress > min && progress < max) {
+                        state = prevState
                     }
                 }
                 State.NEXT -> {
@@ -54,7 +44,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                     state = if (progress < next) {
                         State.PREV
                     } else {
-                        if (step < count -1 && step - 1 < realStep) step++
+                        step++
                         prevState = state
                         State.STOP
                     }
@@ -64,7 +54,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                     state = if (progress > prev) {
                         State.NEXT
                     } else {
-                        if (step > 1  && step - 1 > realStep) step--
+                        step--
                         prevState = state
                         State.STOP
                     }
