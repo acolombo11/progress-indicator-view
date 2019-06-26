@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="space">16dp</dimen>
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="half">8dp</dimen>
+    <dimen name="quarter">4dp</dimen>
+    <dimen name="text_small">10sp</dimen>
+    <dimen name="text_big">20sp</dimen>
+</resources>
