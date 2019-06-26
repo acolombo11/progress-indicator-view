@@ -22,14 +22,18 @@ class MainActivity : AppCompatActivity() {
         progressIndicatorView.min = 0
         progressIndicatorView.max = 100
 
-        fun setProgress(progress: Int){
+        fun setProgress(progress: Int) {
             val prev = progressIndicatorView.progress
 
-            val animator = ValueAnimator()
-            animator.setObjectValues(prev, progress)
-            animator.addUpdateListener { textProgress.text = "${it.animatedValue}%" }
-            animator.duration = ((maxOf(progress, prev) - minOf(progress, prev)) * 100).toLong()
-            animator.start()
+            ValueAnimator().apply {
+                setObjectValues(prev, progress)
+                addUpdateListener {
+                    val percent = "${it.animatedValue}%"
+                    textProgress.text = percent
+                }
+                duration = (maxOf(progress, prev) - minOf(progress, prev)) * 100L
+            }.start()
+
 
             progressIndicatorView.progress = progress
         }
@@ -59,12 +63,13 @@ class MainActivity : AppCompatActivity() {
 
         textProgress.setOnClickListener {
             if (!running) {
-                thread.start()
                 seekBar.visibility = View.VISIBLE
-            } else if (!thread.isInterrupted) {
-                thread.interrupt()
-                running = false
+                running = true
+                thread.start()
+            } else {
                 seekBar.visibility = View.GONE
+                running = false
+                textProgress.setOnClickListener { } // atm I don't want to manage stopping and resetting
             }
         }
 
@@ -76,7 +81,7 @@ class MainActivity : AppCompatActivity() {
             setProgress(minOf(progressIndicatorView.progress + random.nextInt(20), 100))
         }
 
-        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 threadSpeed = progress.toLong()
             }
