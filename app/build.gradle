@@ -29,7 +29,6 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.0.2'
 
     implementation 'com.romandanylyk:pageindicatorview:1.0.3'
-    implementation 'com.tinder.statemachine:statemachine:0.2.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
