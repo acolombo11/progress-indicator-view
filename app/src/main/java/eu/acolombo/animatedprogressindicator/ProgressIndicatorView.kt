@@ -12,31 +12,40 @@ class ProgressIndicatorView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : PageIndicatorView(context, attrs, defStyleAttr) {
 
+    enum class State { STOP, NEXT, PREV }
+
     var progress = 0
     var min: Int = 0
     var max: Int = 100
     var state = State.STOP
     var step = 1
 
-    enum class State { STOP, NEXT, PREV }
+    private var prevState: State = State.NEXT
 
     private val stateMachineHandler = Handler()
-    private var prevState: State = State.NEXT
     private var stateMachine: Runnable = object : Runnable {
 
         override fun run() {
 
             val unit = (max) / (count - 1)
-
             val next = unit * step
             val prev = unit * (step - 1)
-
-            val realStep = ((progress / max.toFloat()) * (count - 1)).toInt()
+            val realStep = ((progress / max.toFloat()) * (count - 1)).toInt() + 1
 
             when (state) {
                 State.STOP -> {
-                    if (progress > min && progress < max) {
-                        state = prevState
+                    when {
+                        step > realStep -> {
+                            decreaseStep()
+                            state = State.PREV
+                        }
+                        step < realStep -> {
+                            increaseStep()
+                            state = State.NEXT
+                        }
+                        progress > min && progress < max -> {
+                            state = prevState
+                        }
                     }
                 }
                 State.NEXT -> {
@@ -44,7 +53,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                     state = if (progress < next) {
                         State.PREV
                     } else {
-                        if (step < count - 1) step++
+                        increaseStep()
                         prevState = state
                         State.STOP
                     }
@@ -54,7 +63,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                     state = if (progress > prev) {
                         State.NEXT
                     } else {
-                        if (step > 1) step--
+                        decreaseStep()
                         prevState = state
                         State.STOP
                     }
@@ -62,13 +71,20 @@ class ProgressIndicatorView @JvmOverloads constructor(
             }
 
             stateMachineHandler.postDelayed(this, animationDuration)
-
         }
 
     }
 
     init {
         stateMachine.run()
+    }
+
+    private fun increaseStep() {
+        if (step < count - 1) step++
+    }
+
+    private fun decreaseStep() {
+        if (step > 1) step--
     }
 
 }

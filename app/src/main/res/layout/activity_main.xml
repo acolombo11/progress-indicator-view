@@ -10,17 +10,13 @@
 
     <TextView
         android:id="@+id/textProgress"
+        style="@style/AppTheme.Text.Big"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/progressIndicatorView"
         android:layout_centerHorizontal="true"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:fontFamily="@font/share_tech_mono"
-        android:padding="@dimen/space"
-        android:text="0%"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_big"
-        tools:ignore="HardcodedText" />
+        android:padding="@dimen/half" />
 
     <eu.acolombo.animatedprogressindicator.ProgressIndicatorView
         android:id="@+id/progressIndicatorView"
@@ -32,28 +28,22 @@
         app:piv_radius="@dimen/quarter" />
 
     <TextView
+        android:id="@+id/textMin"
+        style="@style/AppTheme.Text.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/progressIndicatorView"
         android:layout_alignStart="@id/progressIndicatorView"
-        android:layout_alignLeft="@id/progressIndicatorView"
-        android:alpha=".2"
-        android:fontFamily="@font/share_tech_mono"
-        android:text="0%"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_small"
-        tools:ignore="HardcodedText" />
+        android:layout_alignLeft="@id/progressIndicatorView" />
 
     <TextView
+        android:id="@+id/textMax"
+        style="@style/AppTheme.Text.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/progressIndicatorView"
         android:layout_alignEnd="@id/progressIndicatorView"
         android:layout_alignRight="@id/progressIndicatorView"
-        android:alpha=".2"
-        android:fontFamily="@font/share_tech_mono"
-        android:text="100%"
-        android:textColor="@android:color/white"
         android:textSize="@dimen/text_small" />
 
     <LinearLayout
@@ -65,66 +55,49 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/textSeekBarTitle"
+            style="@style/AppTheme.Text.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:alpha=".2"
-            android:gravity="center"
             android:layout_gravity="center"
-            android:fontFamily="@font/share_tech_mono"
-            android:text="Speed"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:textSize="10sp"
-            tools:ignore="HardcodedText,SmallSp" />
+            android:text="@string/title_speed"
+            android:visibility="gone" />
 
         <SeekBar
-            android:id="@+id/seekBar"
+            android:id="@+id/seekBarSpeed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/space"
-            android:max="800"
-            android:progress="400"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UnusedAttribute">
 
             <Button
                 android:id="@+id/buttonMinus"
+                style="@style/AppTheme.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/button_height"
-                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/half"
+                android:layout_marginRight="@dimen/half"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorRed"
-                android:fontFamily="@font/share_tech_mono"
-                android:gravity="center"
-                android:text="@string/button_minus"
-                android:textAllCaps="true"
-                android:textColor="@android:color/black"
-                tools:ignore="UnusedAttribute" />
-
-            <View
-                android:id="@+id/layoutButtonSeparator"
-                android:layout_width="16dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0" />
+                android:text="@string/button_minus" />
 
             <Button
                 android:id="@+id/buttonPlus"
+                style="@style/AppTheme.Button"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginStart="@dimen/half"
+                android:layout_marginLeft="@dimen/half"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorGreen"
-                android:fontFamily="@font/share_tech_mono"
-                android:gravity="center"
-                android:text="@string/button_plus"
-                android:textAllCaps="true"
-                android:textColor="@android:color/black"
-                tools:ignore="UnusedAttribute" />
+                android:text="@string/button_plus" />
 
         </LinearLayout>
 
