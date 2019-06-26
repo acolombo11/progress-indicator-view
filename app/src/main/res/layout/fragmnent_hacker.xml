@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:fitsSystemWindows="false"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textProgress"
+        style="@style/HackerTheme.Text.Big"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/progressIndicatorView"
+        android:layout_centerHorizontal="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="@dimen/half"
+        tools:text="100%" />
+
+    <eu.acolombo.progressindicatorview.ProgressIndicatorView
+        android:id="@+id/progressIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/half"
+        app:piv_padding="24dp"
+        app:piv_radius="@dimen/quarter" />
+
+    <TextView
+        android:id="@+id/textMin"
+        style="@style/HackerTheme.Text.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progressIndicatorView"
+        android:layout_alignStart="@id/progressIndicatorView"
+        android:layout_alignLeft="@id/progressIndicatorView" />
+
+    <TextView
+        android:id="@+id/textMax"
+        style="@style/HackerTheme.Text.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progressIndicatorView"
+        android:layout_alignEnd="@id/progressIndicatorView"
+        android:layout_alignRight="@id/progressIndicatorView"
+        android:textSize="@dimen/text_small" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/space"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textSeekBarTitle"
+            style="@style/HackerTheme.Text.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/title_speed"
+            android:visibility="gone" />
+
+        <SeekBar
+            android:id="@+id/seekBarSpeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:orientation="horizontal"
+            tools:ignore="UnusedAttribute">
+
+            <Button
+                android:id="@+id/buttonMinus"
+                style="@style/HackerTheme.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginEnd="@dimen/half"
+                android:layout_marginRight="@dimen/half"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorRed"
+                android:text="@string/button_minus" />
+
+            <Button
+                android:id="@+id/buttonPlus"
+                style="@style/HackerTheme.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginStart="@dimen/half"
+                android:layout_marginLeft="@dimen/half"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorGreen"
+                android:text="@string/button_plus" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

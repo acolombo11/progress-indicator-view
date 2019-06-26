@@ -1,4 +1,4 @@
-package eu.acolombo.animatedprogressindicator
+package eu.acolombo.progressindicatorview.example
 
 import org.junit.Test
 

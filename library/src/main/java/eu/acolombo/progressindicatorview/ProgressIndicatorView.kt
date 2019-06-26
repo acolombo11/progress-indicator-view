@@ -1,4 +1,4 @@
-package eu.acolombo.animatedprogressindicator
+package eu.acolombo.progressindicatorview
 
 import android.content.Context
 import android.os.Handler
@@ -70,7 +70,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                 }
             }
 
-            stateMachineHandler.postDelayed(this, animationDuration)
+            stateMachineHandler.postDelayed(this, if (state == State.STOP) 0 else animationDuration)
         }
 
     }
