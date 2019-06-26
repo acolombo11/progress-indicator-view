@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/pageIndicatorView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/share_tech_mono"
+        android:text="0%"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        tools:ignore="HardcodedText,SmallSp" />
+
+    <eu.acolombo.animatedprogressindicator.ProgressIndicatorView
+        android:id="@+id/pageIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:piv_padding="24dp"
+        app:piv_radius="4dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pageIndicatorView"
+        android:layout_alignStart="@id/pageIndicatorView"
+        android:layout_alignLeft="@id/pageIndicatorView"
+        android:layout_marginTop="8dp"
+        android:alpha=".15"
+        android:fontFamily="@font/share_tech_mono"
+        android:text="0%"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        tools:ignore="HardcodedText,SmallSp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pageIndicatorView"
+        android:layout_alignEnd="@id/pageIndicatorView"
+        android:layout_alignRight="@id/pageIndicatorView"
+        android:layout_marginTop="8dp"
+        android:alpha=".15"
+        android:fontFamily="@font/share_tech_mono"
+        android:text="100%"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        tools:ignore="HardcodedText,SmallSp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonMinus"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:backgroundTint="#f33501"
+            android:fontFamily="@font/share_tech_mono"
+            android:gravity="center"
+            android:text="Minus"
+            android:layout_margin="16dp"
+            android:textAllCaps="true"
+            android:textColor="@android:color/black"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+        <Button
+            android:id="@+id/buttonPlus"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:backgroundTint="#00da9d"
+            android:fontFamily="@font/share_tech_mono"
+            android:gravity="center"
+            android:text="Plus"
+            android:textAllCaps="true"
+            android:layout_margin="16dp"
+            android:textColor="@android:color/black"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+    </LinearLayout>
+
+</RelativeLayout>
