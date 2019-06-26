@@ -12,56 +12,6 @@ class ProgressIndicatorView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : PageIndicatorView(context, attrs, defStyleAttr) {
 
-//    sealed class State {
-//        object Stop : State()
-//        object Prev : State()
-//        object Next : State()
-//    }
-//
-//    sealed class Event {
-//        object OnProgressValid : Event()
-//        object OnProgressStep : Event()
-//    }
-//
-//    sealed class SideEffect {
-//        object IncrementPosition : SideEffect()
-//        object DecrementPosition : SideEffect()
-//        object IncrementStep : SideEffect()
-//    }
-//
-//    val stateMachine = StateMachine.create<State, Event, SideEffect> {
-//        initialState(State.Stop)
-//        state<State.Stop> {
-//            on<Event.OnProgressValid> {
-//                transitionTo(State.Next, SideEffect.LogMelted)
-//            }
-//        }
-//        state<State.Liquid> {
-//            on<Event.OnFroze> {
-//                transitionTo(State.Solid, SideEffect.LogFrozen)
-//            }
-//            on<Event.OnVaporized> {
-//                transitionTo(State.Gas, SideEffect.LogVaporized)
-//            }
-//        }
-//        state<State.Gas> {
-//            on<Event.OnCondensed> {
-//                transitionTo(State.Liquid, SideEffect.LogCondensed)
-//            }
-//        }
-//        onTransition {
-//            val validTransition = it as? StateMachine.Transition.Valid ?: return@onTransition
-//            when (validTransition.sideEffect) {
-//                SideEffect.LogMelted -> logger.log(ON_MELTED_MESSAGE)
-//                SideEffect.LogFrozen -> logger.log(ON_FROZEN_MESSAGE)
-//                SideEffect.LogVaporized -> logger.log(ON_VAPORIZED_MESSAGE)
-//                SideEffect.LogCondensed -> logger.log(ON_CONDENSED_MESSAGE)
-//            }
-//        }
-//    }
-
-
-
     var progress = 0
     var min: Int = 0
     var max: Int = 100
@@ -71,28 +21,53 @@ class ProgressIndicatorView @JvmOverloads constructor(
     enum class State { STOP, NEXT, PREV }
 
     private val stateMachineHandler = Handler()
+    private var prevState: State = State.NEXT
     private var stateMachine: Runnable = object : Runnable {
 
         override fun run() {
 
-            val next = (max / (count - 1)) * step
+            val unit = (max) / (count - 1)
+
+            val next = unit * step
+            val prev = unit * (step -1)
+
+            val realStep = ((progress /max.toFloat()) * (count -1)).toInt()
 
             when (state) {
                 State.STOP -> {
-                    if (progress > min && progress < max || progress > next) state = State.NEXT
+                    if (realStep < step -1) {
+                        step--
+                        state = State.PREV
+                    } else if (realStep > step -1) {
+                        step++
+                        state = State.NEXT
+                    } else if (progress > min && progress < max) {
+                        if (prevState == State.PREV ) {
+                            state = State.PREV
+                        } else if (prevState == State.NEXT) {
+                            state = State.NEXT
+                        }
+                    }
                 }
                 State.NEXT -> {
                     selection++
                     state = if (progress < next) {
                         State.PREV
                     } else {
-                        step++
+                        if (step < count -1 && step - 1 < realStep) step++
+                        prevState = state
                         State.STOP
                     }
                 }
                 State.PREV -> {
                     selection--
-                    state = State.NEXT
+                    state = if (progress > prev) {
+                        State.NEXT
+                    } else {
+                        if (step > 1  && step - 1 > realStep) step--
+                        prevState = state
+                        State.STOP
+                    }
                 }
             }
 

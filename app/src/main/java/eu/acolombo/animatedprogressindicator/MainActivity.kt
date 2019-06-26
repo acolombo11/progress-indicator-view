@@ -17,30 +17,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Initial view configuration
+
         progressIndicatorView.setAnimationType(AnimationType.THIN_WORM)
         progressIndicatorView.count = 5
         progressIndicatorView.min = 0
         progressIndicatorView.max = 100
 
         fun setProgress(progress: Int) {
-            val prev = progressIndicatorView.progress
-
-            ValueAnimator().apply {
-                setObjectValues(prev, progress)
-                addUpdateListener {
-                    val percent = "${it.animatedValue}%"
-                    textProgress.text = percent
-                }
-                duration = (maxOf(progress, prev) - minOf(progress, prev)) * 100L
-            }.start()
-
-
+            val percent = "$progress%"
+            textProgress.text = percent
             progressIndicatorView.progress = progress
         }
 
         var threadSpeed = 400L
         var running = false
-        val random = Random(69)
         val mHandler = Handler()
         val thread = Thread(Runnable {
 
@@ -73,27 +64,48 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        val animator = ValueAnimator()
+        val random = Random(69)
+        val randomUnit = 60
+
+        fun setProgressWithAnimation(progress: Int, previous: Int) {
+            animator.start(progress, previous) { setProgress(it) }
+        }
+
+        fun increaseProgressRandom(previous: Int, max: Int, random: Random, randomUnit: Int){
+            setProgressWithAnimation(minOf(previous + random.nextInt(randomUnit), max), previous)
+        }
+
+        fun decreaseProgressRandom(previous: Int, min: Int, random: Random, randomUnit: Int){
+            setProgressWithAnimation(maxOf(previous - random.nextInt(randomUnit), min), previous)
+        }
+
         buttonMinus.setOnClickListener {
-            setProgress(maxOf(progressIndicatorView.progress - random.nextInt(16), 0))
+            if (!animator.isRunning) decreaseProgressRandom(progressIndicatorView.progress, progressIndicatorView.min, random, randomUnit)
         }
 
         buttonPlus.setOnClickListener {
-            setProgress(minOf(progressIndicatorView.progress + random.nextInt(20), 100))
+            if (!animator.isRunning) increaseProgressRandom(progressIndicatorView.progress, progressIndicatorView.max, random, randomUnit)
         }
 
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 threadSpeed = progress.toLong()
             }
-
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
                 // not implemented
             }
-
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 // not implemented
             }
         })
 
+    }
+
+    private fun ValueAnimator.start(progress: Int, previous: Int, func: (progress: Int) -> Unit) = apply {
+        setObjectValues(previous, progress)
+        addUpdateListener { func(it.animatedValue as @kotlin.ParameterName(name = "progress") Int) }
+        duration = (maxOf(progress, previous) - minOf(progress, previous)) * 100L
+        start()
     }
 }
