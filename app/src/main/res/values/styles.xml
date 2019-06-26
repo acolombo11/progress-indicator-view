@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="HackerTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:navigationBarColor" tools:targetApi="o_mr1">@color/colorPrimary</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
     </style>
 
-    <style name="AppTheme.Text">
+    <style name="HackerTheme.Text">
         <item name="android:fontFamily">@font/share_tech_mono</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">@dimen/text_regular</item>
     </style>
 
-    <style name="AppTheme.Text.Small">
+    <style name="HackerTheme.Text.Small">
         <item name="android:textSize">@dimen/text_small</item>
-        <item name="android:textColor">@color/colorAccent20</item>
+        <item name="android:textColor">@color/colorAccentAlpha</item>
     </style>
 
-    <style name="AppTheme.Text.Big">
+    <style name="HackerTheme.Text.Big">
         <item name="android:textSize">@dimen/text_big</item>
     </style>
 
-    <style name="AppTheme.Button" parent="AppTheme.Text">
+    <style name="HackerTheme.Button" parent="HackerTheme.Text">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:backgroundTint" tools:targetApi="lollipop">@color/colorAccent</item>
     </style>

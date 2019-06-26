@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AnimatedProgressIndicator</string>
+    <string name="app_name">Progress Indicator View Example</string>
     <string name="button_plus">Plus</string>
     <string name="button_minus">Minus</string>
     <string name="title_speed">Speed</string>

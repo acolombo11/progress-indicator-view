@@ -1,4 +1,4 @@
-package eu.acolombo.animatedprogressindicator
+package eu.acolombo.progressindicatorview.example
 
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
@@ -6,25 +6,16 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.widget.SeekBar
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.rd.animation.type.AnimationType
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragmnent_hacker.*
 import kotlin.random.Random
 
 @SuppressLint("SetTextI18n")
-class MainActivity : AppCompatActivity() {
+abstract class BaseFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        // Initial view configuration
-
-        progressIndicatorView.setAnimationType(AnimationType.THIN_WORM)
-        progressIndicatorView.count = 5
-        progressIndicatorView.min = 0
-        progressIndicatorView.max = 100
-        progressIndicatorView.animationDuration = 300L
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         setupProgress(0)
         setupDemoProgressChangers()
@@ -33,9 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         textMax.text = "${progressIndicatorView.max}%"
         textMin.text = "${progressIndicatorView.min}%"
-
     }
-
 
     private fun setupProgress(progress: Int) {
         progressIndicatorView.progress = progress
