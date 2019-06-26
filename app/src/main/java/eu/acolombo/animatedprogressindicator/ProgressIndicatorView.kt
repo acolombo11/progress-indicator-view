@@ -29,9 +29,9 @@ class ProgressIndicatorView @JvmOverloads constructor(
             val unit = (max) / (count - 1)
 
             val next = unit * step
-            val prev = unit * (step -1)
+            val prev = unit * (step - 1)
 
-            val realStep = ((progress /max.toFloat()) * (count -1)).toInt()
+            val realStep = ((progress / max.toFloat()) * (count - 1)).toInt()
 
             when (state) {
                 State.STOP -> {
@@ -44,7 +44,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                     state = if (progress < next) {
                         State.PREV
                     } else {
-                        step++
+                        if (step < count - 1) step++
                         prevState = state
                         State.STOP
                     }
@@ -54,7 +54,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                     state = if (progress > prev) {
                         State.NEXT
                     } else {
-                        step--
+                        if (step > 1) step--
                         prevState = state
                         State.STOP
                     }
