@@ -73,15 +73,13 @@ class ProgressIndicatorView @JvmOverloads constructor(
     private val stateMachineHandler = Handler()
     private var stateMachine: Runnable = object : Runnable {
 
-        var exit = false
-
         override fun run() {
 
             val next = (max / (count - 1)) * step
 
             when (state) {
-                State.STOP -> exitOrExecute {
-                    if (progress > min && progress < max) state = State.NEXT
+                State.STOP -> {
+                    if (progress > min && progress < max || progress > next) state = State.NEXT
                 }
                 State.NEXT -> {
                     selection++
@@ -98,18 +96,10 @@ class ProgressIndicatorView @JvmOverloads constructor(
                 }
             }
 
-            if(!exit) stateMachineHandler.postDelayed(this, animationDuration)
+            stateMachineHandler.postDelayed(this, animationDuration)
 
         }
 
-        fun exitOrExecute(execute: () -> Unit) {
-            if (progress >= max) {
-                exit = true
-                stateMachineHandler.removeCallbacks(this)
-            } else {
-                execute()
-            }
-        }
     }
 
     init {
