@@ -10,4 +10,25 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
     </style>
 
+    <style name="AppTheme.Text">
+        <item name="android:fontFamily">@font/share_tech_mono</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/text_regular</item>
+    </style>
+
+    <style name="AppTheme.Text.Small">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/colorAccent20</item>
+    </style>
+
+    <style name="AppTheme.Text.Big">
+        <item name="android:textSize">@dimen/text_big</item>
+    </style>
+
+    <style name="AppTheme.Button" parent="AppTheme.Text">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/colorAccent</item>
+    </style>
+
 </resources>
