@@ -7,7 +7,6 @@ import android.os.Handler
 import android.view.View
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
-import com.rd.animation.type.AnimationType
 import kotlinx.android.synthetic.main.fragmnent_hacker.*
 import kotlin.random.Random
 
@@ -22,13 +21,13 @@ abstract class BaseFragment : Fragment() {
 
         // Other ui configuration
 
-        textMax.text = "${progressIndicatorView.max}%"
-        textMin.text = "${progressIndicatorView.min}%"
+        textMax?.text = "${progressIndicatorView.max}%"
+        textMin?.text = "${progressIndicatorView.min}%"
     }
 
     private fun setupProgress(progress: Int) {
-        progressIndicatorView.progress = progress
-        textProgress.text = "$progress%"
+        progressIndicatorView?.progress = progress
+        textProgress?.text = "$progress%"
     }
 
     private fun setupDemoProgressChangers() {
@@ -49,17 +48,17 @@ abstract class BaseFragment : Fragment() {
             }
         })
 
-        textProgress.setOnClickListener {
+        textProgress?.setOnClickListener {
             if (!running) {
-                seekBarSpeed.visibility = View.VISIBLE
-                textSeekBarTitle.visibility = View.VISIBLE
+                seekBarSpeed?.visibility = View.VISIBLE
+                textSeekBarTitle?.visibility = View.VISIBLE
                 running = true
                 thread.start()
             } else {
-                seekBarSpeed.visibility = View.GONE
-                textSeekBarTitle.visibility = View.GONE
+                seekBarSpeed?.visibility = View.GONE
+                textSeekBarTitle?.visibility = View.GONE
                 running = false
-                textProgress.setOnClickListener { } // atm I don't want to manage stopping and resetting
+                textProgress?.setOnClickListener { } // atm I don't want to manage stopping and resetting
             }
         }
 
@@ -86,7 +85,7 @@ abstract class BaseFragment : Fragment() {
             setupProgressWithAnimation(maxOf(previous - random.nextInt(randomUnit), min), previous)
         }
 
-        buttonMinus.setOnClickListener {
+        buttonMinus?.setOnClickListener {
             if (!animator.isRunning) decreaseProgressRandom(
                 progressIndicatorView.progress,
                 progressIndicatorView.min,
@@ -95,7 +94,7 @@ abstract class BaseFragment : Fragment() {
             )
         }
 
-        buttonPlus.setOnClickListener {
+        buttonPlus?.setOnClickListener {
             if (!animator.isRunning) increaseProgressRandom(
                 progressIndicatorView.progress,
                 progressIndicatorView.max,
@@ -104,9 +103,9 @@ abstract class BaseFragment : Fragment() {
             )
         }
 
-        seekBarSpeed.max = threadSpeed.toInt() * 2
-        seekBarSpeed.progress = threadSpeed.toInt()
-        seekBarSpeed.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        seekBarSpeed?.max = threadSpeed.toInt() * 2
+        seekBarSpeed?.progress = threadSpeed.toInt()
+        seekBarSpeed?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 threadSpeed = seekBarSpeed.max - progress.toLong()
             }
