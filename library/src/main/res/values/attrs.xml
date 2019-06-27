@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ProgressIndicatorView">
+
+        <attr name="piv_progress" format="integer" />
+        <attr name="piv_min" format="integer" />
+        <attr name="piv_max" format="integer" />
+
+    </declare-styleable>
+
+</resources>
