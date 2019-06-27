@@ -7,7 +7,7 @@ import android.os.Handler
 import android.view.View
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragmnent_hacker.*
+import kotlinx.android.synthetic.main.fragment_shenzen.*
 import kotlin.random.Random
 
 @SuppressLint("SetTextI18n")
@@ -16,21 +16,22 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupProgress(0)
         setupDemoProgressChangers()
 
-        // Other ui configuration
-
+        textProgress?.text = "${progressIndicatorView.progress}%"
         textMax?.text = "${progressIndicatorView.max}%"
         textMin?.text = "${progressIndicatorView.min}%"
     }
 
-    private fun setupProgress(progress: Int) {
+    fun setupProgress(progress: Int) {
         progressIndicatorView?.progress = progress
         textProgress?.text = "$progress%"
     }
 
     private fun setupDemoProgressChangers() {
+
+        layoutControls?.visibility = View.VISIBLE
+
         var threadSpeed = 300L
         var running = false
         val mHandler = Handler()

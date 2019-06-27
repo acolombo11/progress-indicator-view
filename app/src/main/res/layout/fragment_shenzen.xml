@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/textProgress"
-        style="@style/HackerTheme.Text.Big"
+        style="@style/DemoTheme.Text.Big"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/progressIndicatorView"
@@ -25,12 +25,13 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_margin="@dimen/half"
+        app:piv_max="100"
         app:piv_padding="24dp"
         app:piv_radius="@dimen/quarter" />
 
     <TextView
         android:id="@+id/textMin"
-        style="@style/HackerTheme.Text.Small"
+        style="@style/DemoTheme.Text.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/progressIndicatorView"
@@ -39,7 +40,7 @@
 
     <TextView
         android:id="@+id/textMax"
-        style="@style/HackerTheme.Text.Small"
+        style="@style/DemoTheme.Text.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/progressIndicatorView"
@@ -48,16 +49,18 @@
         android:textSize="@dimen/text_small" />
 
     <LinearLayout
+        android:id="@+id/layoutControls"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/space"
         android:animateLayoutChanges="true"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/textSeekBarTitle"
-            style="@style/HackerTheme.Text.Small"
+            style="@style/DemoTheme.Text.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -80,7 +83,7 @@
 
             <Button
                 android:id="@+id/buttonMinus"
-                style="@style/HackerTheme.Button"
+                style="@style/DemoTheme.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/button_height"
                 android:layout_marginEnd="@dimen/half"
@@ -91,7 +94,7 @@
 
             <Button
                 android:id="@+id/buttonPlus"
-                style="@style/HackerTheme.Button"
+                style="@style/DemoTheme.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/button_height"
                 android:layout_marginStart="@dimen/half"
