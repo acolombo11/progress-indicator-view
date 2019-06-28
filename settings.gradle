@@ -1,2 +1,2 @@
-include ':app', ':library'
-rootProject.name='Progress Indicator ViewExample'
+include ':app', ':progress-indicator-view'
+rootProject.name='progress-indicator-view-example'
