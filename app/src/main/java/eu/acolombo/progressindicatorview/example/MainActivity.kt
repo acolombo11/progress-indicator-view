@@ -18,9 +18,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setStatusBarColor(Color.TRANSPARENT)
+        setStatusBarColor()
 
-        viewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager){
+        viewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
 
             override fun getItem(position: Int) = when (position) {
                 0 -> ShenzenFragment()
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun setStatusBarColor(@ColorInt color: Int = Color.TRANSPARENT) {
+    private fun setStatusBarColor(@ColorInt color: Int = Color.TRANSPARENT) {
 
         val isColorDark = ColorUtils.calculateLuminance(color) > 0.5
 

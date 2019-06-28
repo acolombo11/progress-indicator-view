@@ -97,7 +97,10 @@ abstract class BaseFragment : Fragment() {
 
         buttonMinus?.setOnLongClickListener {
             if (!animator.isRunning) {
-                setupProgressWithAnimation (progressIndicatorView.progress - (progressIndicatorView.max / (progressIndicatorView.count - 1)), progressIndicatorView.progress)
+                setupProgressWithAnimation(
+                    progressIndicatorView.progress - (progressIndicatorView.max / (progressIndicatorView.count - 1)),
+                    progressIndicatorView.progress
+                )
                 true
             } else {
                 false
@@ -115,7 +118,10 @@ abstract class BaseFragment : Fragment() {
 
         buttonPlus?.setOnLongClickListener {
             if (!animator.isRunning) {
-                setupProgressWithAnimation (progressIndicatorView.progress + (progressIndicatorView.max / (progressIndicatorView.count - 1)), progressIndicatorView.progress)
+                setupProgressWithAnimation(
+                    progressIndicatorView.progress + (progressIndicatorView.max / (progressIndicatorView.count - 1)),
+                    progressIndicatorView.progress
+                )
                 true
             } else {
                 false

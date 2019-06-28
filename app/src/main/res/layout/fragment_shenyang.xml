@@ -27,6 +27,7 @@
         android:layout_margin="@dimen/half"
         app:piv_padding="20dp"
         app:piv_max="100"
+        app:piv_unselectedColor="@color/colorAccentAlpha"
         app:piv_radius="6dp" />
 
     <TextView
