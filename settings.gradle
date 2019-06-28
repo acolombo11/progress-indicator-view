@@ -1,2 +1,2 @@
 include ':app', ':progress-indicator-view'
-rootProject.name='progress-indicator-view-example'
+rootProject.name='progress-indicator-view-library'
