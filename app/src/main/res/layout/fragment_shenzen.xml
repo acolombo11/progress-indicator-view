@@ -27,6 +27,7 @@
         android:layout_margin="@dimen/half"
         app:piv_max="100"
         app:piv_padding="24dp"
+        app:piv_skipSteps="true"
         app:piv_radius="@dimen/quarter" />
 
     <TextView

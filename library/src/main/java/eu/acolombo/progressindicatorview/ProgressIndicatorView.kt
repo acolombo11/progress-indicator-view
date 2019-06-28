@@ -55,10 +55,16 @@ class ProgressIndicatorView @JvmOverloads constructor(
             when (state) {
                 State.STOP -> {
                     when {
+                        selection > stepProgress - 1 && !skipSteps -> {
+                            state = State.PREV
+                        }
+                        selection < stepProgress - 1 && !skipSteps -> {
+                            state = State.NEXT
+                        }
                         progress > min && progress < max && !stopStep -> {
                             state = statePrev
                         }
-                        selection != stepProgress - 1 -> {
+                        selection != stepProgress -1 && skipSteps -> {
                             selection = stepProgress - 1
                         }
                     }
@@ -70,7 +76,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                         selection++
                     }
 
-                    state = if (progress < next || skipSteps && statePrev == State.PREV && progress <= next) {
+                    state = if (progress < next || statePrev == State.PREV && progress <= next) {
                         State.PREV
                     } else {
                         if (step < count - 1) step++
@@ -85,7 +91,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                         selection--
                     }
 
-                    state = if (progress > prev || skipSteps && statePrev == State.NEXT && progress >= prev) {
+                    state = if (progress > prev || statePrev == State.NEXT && progress >= prev) {
                         State.NEXT
                     } else {
                         if (step > 1) step--
@@ -95,7 +101,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                 }
             }
 
-            stateMachineHandler.postDelayed(this, if(state == State.STOP) animationDuration/4 else animationDuration)
+            stateMachineHandler.postDelayed(this, animationDuration)
 
         }
 
