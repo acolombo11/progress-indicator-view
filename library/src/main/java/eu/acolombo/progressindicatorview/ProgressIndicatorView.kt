@@ -4,9 +4,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.os.Handler
 import android.util.AttributeSet
-import android.util.Log
 import com.rd.PageIndicatorView
-import java.text.NumberFormat
 
 
 class ProgressIndicatorView @JvmOverloads constructor(
@@ -22,11 +20,12 @@ class ProgressIndicatorView @JvmOverloads constructor(
 
     var stopOnStep: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_stopOnStep, false)
     var stepToMin: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_stepToMin, false)
-    var balanceForward: Boolean = true
+    var skipSteps: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_skipSteps, false)
+    var balanceForward: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_balanceForward, false)
 
     fun setProgress(progress: Int, animate: Boolean) {
         this.progress = progress
-        if (!animate) this.setSelected(stepProgress)
+        if (!animate) setSelected(stepProgress)
     }
 
     private val stepProgress: Int
@@ -60,8 +59,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                             state = statePrev
                         }
                         selection != stepProgress - 1 -> {
-                            Log.d(javaClass.name, "SetSelected")
-                            setSelected(stepProgress - 1)
+                            selection = stepProgress - 1
                         }
                     }
                 }
@@ -72,7 +70,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                         selection++
                     }
 
-                    state = if (progress < next) {
+                    state = if (progress < next || skipSteps && statePrev == State.PREV && progress <= next) {
                         State.PREV
                     } else {
                         if (step < count - 1) step++
@@ -87,7 +85,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                         selection--
                     }
 
-                    state = if (progress > prev) {
+                    state = if (progress > prev || skipSteps && statePrev == State.NEXT && progress >= prev) {
                         State.NEXT
                     } else {
                         if (step > 1) step--
@@ -98,25 +96,6 @@ class ProgressIndicatorView @JvmOverloads constructor(
             }
 
             stateMachineHandler.postDelayed(this, if(state == State.STOP) animationDuration/4 else animationDuration)
-
-            fun printLog() {
-                val format = NumberFormat.getInstance().apply {
-                    minimumFractionDigits = 0
-                    maximumFractionDigits = 0
-                    minimumIntegerDigits = 2
-                    maximumIntegerDigits = 2
-                }
-                Log.d(
-                    javaClass.name, "progress: ${format.format(progress)}, " +
-                            "prev: ${format.format(prev)}, " +
-                            "next: ${format.format(next)}, " +
-                            "state: $state, " +
-                            "step: $step, " +
-                            "selection: $selection"
-                )
-            }
-
-            if (unit == 25f) printLog()
 
         }
 
