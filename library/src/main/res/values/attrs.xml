@@ -6,6 +6,8 @@
         <attr name="piv_progress" format="integer" />
         <attr name="piv_min" format="integer" />
         <attr name="piv_max" format="integer" />
+        <attr name="piv_stopOnStep" format="boolean" />
+        <attr name="piv_stepToMin" format="boolean" />
 
     </declare-styleable>
 

@@ -37,7 +37,7 @@ abstract class BaseFragment : Fragment() {
         val mHandler = Handler()
         val thread = Thread(Runnable {
             var p = 0
-            while (p < progressIndicatorView.max) {
+            while (p < progressIndicatorView?.max ?: 0) {
                 try {
                     Thread.sleep(threadSpeed)
                     p++
@@ -95,6 +95,15 @@ abstract class BaseFragment : Fragment() {
             )
         }
 
+        buttonMinus?.setOnLongClickListener {
+            if (!animator.isRunning) {
+                setupProgressWithAnimation (progressIndicatorView.progress - (progressIndicatorView.max / (progressIndicatorView.count - 1)), progressIndicatorView.progress)
+                true
+            } else {
+                false
+            }
+        }
+
         buttonPlus?.setOnClickListener {
             if (!animator.isRunning) increaseProgressRandom(
                 progressIndicatorView.progress,
@@ -102,6 +111,15 @@ abstract class BaseFragment : Fragment() {
                 random,
                 randomUnit
             )
+        }
+
+        buttonPlus?.setOnLongClickListener {
+            if (!animator.isRunning) {
+                setupProgressWithAnimation (progressIndicatorView.progress + (progressIndicatorView.max / (progressIndicatorView.count - 1)), progressIndicatorView.progress)
+                true
+            } else {
+                false
+            }
         }
 
         seekBarSpeed?.max = threadSpeed.toInt() * 2
