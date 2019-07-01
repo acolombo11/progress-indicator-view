@@ -1,7 +1,8 @@
 # progress-indicator-view
 Animated view showing determinate progress in a fun stupid way, mixing together PageIndicatorView and ProgressBar.
 
-//TODO Add screenshots here
+![big parking lot](docs/gifs/Progress_Indicator_View_Example_2019-07-01-14-57-22.gif)
+![small parking lot](docs/gifs/Progress_Indicator_View_Example_2019-07-01-14-58-38.gif)
 
 ## Download &nbsp; [![Release](https://jitpack.io/v/eu.acolombo/progress-indicator-view.svg)](https://jitpack.io/#eu.acolombo/progress-indicator-view)
 
