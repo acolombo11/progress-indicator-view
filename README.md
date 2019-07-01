@@ -8,7 +8,7 @@ Animated view showing determinate progress in a fun stupid way, mixing together 
 Add the dependency in your app  `build.gradle` with the current version number: 
 
 ```gradle
-implementation 'eu.acolombo:progress-indicator-view:0.3.3'
+implementation 'eu.acolombo:progress-indicator-view:0.3.5'
 ```
 
 If you haven't done so already for other libraries, you also have to add JitPack in your root `build.gradle`:
