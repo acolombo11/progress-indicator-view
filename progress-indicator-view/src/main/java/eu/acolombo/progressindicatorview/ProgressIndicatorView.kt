@@ -86,7 +86,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                     }
                 }
                 State.BACKWARD -> {
-                    if (stepToMin) selection = min else if ((selection + 1) >= stepProgress) selection--
+                    if (stepToMin) selection = min else if ((selection + 1) >= stepProgress - 1) selection--
 
                     state = if (progress > prev || statePrev == State.FORWARD && progress >= prev) {
                         State.FORWARD
@@ -97,10 +97,8 @@ class ProgressIndicatorView @JvmOverloads constructor(
                     }
                 }
             }
-
-            if(unit == 25f) Log.d(javaClass.name, "$progress, $step, $state, sel: $selection, $progress")
-
-            stateMachineHandler.postDelayed(this, if (state == State.STOP) animationDuration/4 else animationDuration)
+            
+            stateMachineHandler.postDelayed(this, animationDuration)
 
         }
 
