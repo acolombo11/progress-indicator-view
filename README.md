@@ -36,7 +36,7 @@ All [PageIndicatorView](https://github.com/romandanylyk/PageIndicatorView)'s att
     skipSteps
     balanceForward
 
-I also added three listeners, I'm sorry if you're still using Java because i:
+I also added three callbacks:
 
     onStepChanged
     onMinReached
