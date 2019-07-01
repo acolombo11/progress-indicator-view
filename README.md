@@ -15,7 +15,7 @@ If you haven't done so already for other libraries, you also have to add JitPack
 ```gradle
 allprojects {
     repositories {
-        ...
+        ..
         maven { url 'https://jitpack.io' }
     }
 }
