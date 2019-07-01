@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.os.Handler
 import android.util.AttributeSet
+import android.util.Log
 import com.rd.PageIndicatorView
 
 
@@ -21,7 +22,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
     var stopOnStep: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_stopOnStep, false)
     var stepToMin: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_stepToMin, false)
     var skipSteps: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_skipSteps, false)
-    var balanceForward: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_balanceForward, false)
+    var balanceForward: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_balanceForward, true)
 
     var onStepChanged: (step: Int, forward: Boolean) -> Unit = { _, _ -> }
     var onMinReached: () -> Unit = { }
@@ -85,7 +86,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                     }
                 }
                 State.BACKWARD -> {
-                    if (stepToMin) selection = min else if ((selection - 1) >= stepProgress - 1) selection--
+                    if (stepToMin) selection = min else if ((selection + 1) >= stepProgress) selection--
 
                     state = if (progress > prev || statePrev == State.FORWARD && progress >= prev) {
                         State.FORWARD
@@ -97,7 +98,9 @@ class ProgressIndicatorView @JvmOverloads constructor(
                 }
             }
 
-            stateMachineHandler.postDelayed(this, animationDuration)
+            if(unit == 25f) Log.d(javaClass.name, "$progress, $step, $state, sel: $selection, $progress")
+
+            stateMachineHandler.postDelayed(this, if (state == State.STOP) animationDuration/4 else animationDuration)
 
         }
 
