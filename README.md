@@ -1,9 +1,9 @@
 # progress-indicator-view
 Animated view showing determinate progress in a fun stupid way, mixing together PageIndicatorView and ProgressBar.
 
-## Download
+## Download [![Release](https://jitpack.io/v/eu.acolombo/progress-indicator-view.svg)](https://jitpack.io/#eu.acolombo/progress-indicator-view)
 
-Add the dependency in your app  `build.gradle` with the current version number [![Release](https://jitpack.io/v/eu.acolombo/progress-indicator-view.svg)](https://jitpack.io/#eu.acolombo/progress-indicator-view)
+Add the dependency in your app  `build.gradle` with the current version number: 
 
 ```
 implementation 'eu.acolombo:progress-indicator-view:0.3.3'
