@@ -23,6 +23,10 @@ class ProgressIndicatorView @JvmOverloads constructor(
     var skipSteps: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_skipSteps, false)
     var balanceForward: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_balanceForward, false)
 
+    var onStepChanged: (step: Int, forward: Boolean) -> Unit = { _, _ -> }
+    var onMinReached: () -> Unit = { }
+    var onMaxReached: () -> Unit = { }
+
     fun setProgress(progress: Int, animate: Boolean) {
         this.progress = progress
         if (!animate) setSelected(stepProgress)
@@ -31,7 +35,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
     private val stepProgress: Int
         get() = ((progress / max.toFloat()) * (count - 1)).toInt() + 1
 
-    private enum class State { STOP, NEXT, PREV }
+    private enum class State { STOP, FORWARD, BACKWARD }
 
     private val stateMachineHandler = Handler()
     private var stateMachine: Runnable = object : Runnable {
@@ -39,9 +43,9 @@ class ProgressIndicatorView @JvmOverloads constructor(
         private var step = stepProgress.also { selection = it - 1 }
         private var state = State.STOP
         private var statePrev = when {
-            progress > max / 2 -> State.NEXT
-            progress < max / 2 -> State.PREV
-            else -> if (balanceForward) State.NEXT else State.PREV
+            progress > max / 2 -> State.FORWARD
+            progress < max / 2 -> State.BACKWARD
+            else -> if (balanceForward) State.FORWARD else State.BACKWARD
         }
 
         override fun run() {
@@ -56,45 +60,37 @@ class ProgressIndicatorView @JvmOverloads constructor(
                 State.STOP -> {
                     when {
                         selection > stepProgress - 1 && !skipSteps -> {
-                            state = State.PREV
+                            state = State.BACKWARD
                         }
                         selection < stepProgress - 1 && !skipSteps -> {
-                            state = State.NEXT
+                            state = State.FORWARD
                         }
                         progress > min && progress < max && !stopStep -> {
                             state = statePrev
                         }
-                        selection != stepProgress -1 && skipSteps -> {
+                        selection != stepProgress - 1 && skipSteps -> {
                             selection = stepProgress - 1
                         }
                     }
                 }
-                State.NEXT -> {
-                    if (stepToMin) {
-                        selection = stepProgress
-                    } else if ((selection + 1) <= stepProgress) {
-                        selection++
-                    }
+                State.FORWARD -> {
+                    if (stepToMin) selection = stepProgress else if ((selection + 1) <= stepProgress) selection++
 
-                    state = if (progress < next || statePrev == State.PREV && progress <= next) {
-                        State.PREV
+                    state = if (progress < next || statePrev == State.BACKWARD && progress <= next) {
+                        State.BACKWARD
                     } else {
-                        if (step < count - 1) step++
+                        if (step < count - 1) onStepChanged(++step, true) else onMaxReached()
                         statePrev = state
                         State.STOP
                     }
                 }
-                State.PREV -> {
-                    if (stepToMin) {
-                        selection = min
-                    } else if ((selection - 1) >= stepProgress - 1) {
-                        selection--
-                    }
+                State.BACKWARD -> {
+                    if (stepToMin) selection = min else if ((selection - 1) >= stepProgress - 1) selection--
 
-                    state = if (progress > prev || statePrev == State.NEXT && progress >= prev) {
-                        State.NEXT
+                    state = if (progress > prev || statePrev == State.FORWARD && progress >= prev) {
+                        State.FORWARD
                     } else {
-                        if (step > 1) step--
+                        if (step > 1) onStepChanged(--step, false) else onMinReached()
                         statePrev = state
                         State.STOP
                     }
