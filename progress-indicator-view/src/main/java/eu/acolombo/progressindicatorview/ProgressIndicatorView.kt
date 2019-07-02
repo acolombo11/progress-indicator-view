@@ -71,6 +71,11 @@ class ProgressIndicatorView @JvmOverloads constructor(
                         }
                         selection != stepProgress - 1 && skipSteps -> {
                             selection = stepProgress - 1
+                            when (progress) {
+                                min -> onMinReached()
+                                max -> onMaxReached()
+                                else -> onStepChanged(selection + 1, step < selection +1)
+                            }
                         }
                     }
                 }

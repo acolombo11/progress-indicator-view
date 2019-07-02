@@ -4,6 +4,7 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
@@ -21,6 +22,10 @@ abstract class BaseFragment : Fragment() {
         textProgress?.text = "${progressIndicatorView.progress}%"
         textMax?.text = "${progressIndicatorView.max}%"
         textMin?.text = "${progressIndicatorView.min}%"
+
+        progressIndicatorView.onMaxReached = { Log.d(javaClass.name, "MAX" ) }
+        progressIndicatorView.onStepChanged = { step, forward -> Log.d(javaClass.name, "$step $forward" ) }
+        progressIndicatorView.onMinReached = { Log.d(javaClass.name, "MIN" ) }
     }
 
     fun setupProgress(progress: Int) {
