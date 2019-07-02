@@ -16,7 +16,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
     private val typedArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ProgressIndicatorView)
     var progress = typedArray.getInt(R.styleable.ProgressIndicatorView_piv_progress, 0)
     var min = typedArray.getInt(R.styleable.ProgressIndicatorView_piv_min, 0)
-    var max = typedArray.getInt(R.styleable.ProgressIndicatorView_piv_max, 0)
+    var max = typedArray.getInt(R.styleable.ProgressIndicatorView_piv_max, 100)
 
     var stopOnStep: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_stopOnStep, false)
     var stopOnStart: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_stopOnStart, true)
