@@ -7,7 +7,7 @@
         <attr name="piv_min" format="integer" />
         <attr name="piv_max" format="integer" />
         <attr name="piv_stopOnStep" format="boolean" />
-        <attr name="piv_stopOnEdge" format="boolean" />
+        <attr name="piv_stopOnStart" format="boolean" />
         <attr name="piv_stepToMin" format="boolean" />
         <attr name="piv_skipSteps" format="boolean" />
         <attr name="piv_balanceForward" format="boolean" />

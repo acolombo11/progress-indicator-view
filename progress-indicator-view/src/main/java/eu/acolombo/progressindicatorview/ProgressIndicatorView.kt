@@ -19,7 +19,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
     var max = typedArray.getInt(R.styleable.ProgressIndicatorView_piv_max, 0)
 
     var stopOnStep: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_stopOnStep, false)
-    var stopOnStart: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_stopOnEdge, true)
+    var stopOnStart: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_stopOnStart, true)
     var stepToMin: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_stepToMin, false)
     var skipSteps: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_skipSteps, false)
     var balanceForward: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_balanceForward, true)
