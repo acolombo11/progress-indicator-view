@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.os.Handler
 import android.util.AttributeSet
-import android.util.Log
 import com.rd.PageIndicatorView
 
 
@@ -20,6 +19,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
     var max = typedArray.getInt(R.styleable.ProgressIndicatorView_piv_max, 0)
 
     var stopOnStep: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_stopOnStep, false)
+    var stopOnStart: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_stopOnEdge, true)
     var stepToMin: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_stepToMin, false)
     var skipSteps: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_skipSteps, false)
     var balanceForward: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_balanceForward, true)
@@ -44,8 +44,8 @@ class ProgressIndicatorView @JvmOverloads constructor(
         private var step = stepProgress.also { selection = it - 1 }
         private var state = State.STOP
         private var statePrev = when {
-            progress > max / 2 -> State.FORWARD
-            progress < max / 2 -> State.BACKWARD
+            progress > max / 2 -> State.BACKWARD
+            progress < max / 2 -> State.FORWARD
             else -> if (balanceForward) State.FORWARD else State.BACKWARD
         }
 
@@ -55,7 +55,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
             val next = unit * step
             val prev = unit * (step - 1)
 
-            val stopStep = if (stopOnStep) progress % unit.toInt() == 0 else false
+            val stopOnThisStep = if (stopOnStep) progress % unit.toInt() == 0 else false
 
             when (state) {
                 State.STOP -> {
@@ -66,7 +66,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                         selection < stepProgress - 1 && !skipSteps -> {
                             state = State.FORWARD
                         }
-                        progress > min && progress < max && !stopStep -> {
+                        (progress > min && progress < max && !stopOnThisStep) || !stopOnStart -> {
                             state = statePrev
                         }
                         selection != stepProgress - 1 && skipSteps -> {
@@ -77,7 +77,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                 State.FORWARD -> {
                     if (stepToMin) selection = stepProgress else if ((selection + 1) <= stepProgress) selection++
 
-                    state = if (progress < next || statePrev == State.BACKWARD && progress <= next) {
+                    state = if ((progress < next || statePrev == State.BACKWARD && progress <= next) && !stopOnThisStep) {
                         State.BACKWARD
                     } else {
                         if (step < count - 1) onStepChanged(++step, true) else onMaxReached()
@@ -88,7 +88,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                 State.BACKWARD -> {
                     if (stepToMin) selection = min else if ((selection + 1) >= stepProgress - 1) selection--
 
-                    state = if (progress > prev || statePrev == State.FORWARD && progress >= prev) {
+                    state = if ((progress > prev || statePrev == State.FORWARD && progress >= prev) && !stopOnThisStep) {
                         State.FORWARD
                     } else {
                         if (step > 1) onStepChanged(--step, false) else onMinReached()
@@ -97,7 +97,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                     }
                 }
             }
-            
+
             stateMachineHandler.postDelayed(this, animationDuration)
 
         }
