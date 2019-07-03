@@ -1,7 +1,7 @@
 # progress-indicator-view
 A custom Android view showing determinate progress through a fun/stupid animation.
 
-There are a lot of cool animations for indeterminate progress bars, but there are not many ways to add a little fun to determinate progress bars. I did nothing more than extending romandanylyk's [PageIndicatorView](https://github.com/romandanylyk/PageIndicatorView), adding similar setters and getters to Android [ProgressBar](https://developer.android.com/reference/android/widget/ProgressBar), and implementing a [finite-state machine](https://en.wikipedia.org/wiki/Finite-state_machine) to manage the animation while progressing.
+There are a lot of cool animations for indeterminate progress bars, but there are not many ways to add a little fun to determinate progress bars. I did nothing more than extending [romandanylyk's PageIndicatorView](https://github.com/romandanylyk/PageIndicatorView), adding similar setters and getters to Android's [ProgressBar](https://developer.android.com/reference/android/widget/ProgressBar), and implementing a [finite-state machine](https://en.wikipedia.org/wiki/Finite-state_machine) to manage the animation while progressing.
 
 ![exmaple Shenzen](docs/gifs/Progress_Indicator_View_Example_2019-07-03-09-41-26.gif)
 ![example Shenyang](docs/gifs/Progress_Indicator_View_Example_2019-07-03-09-42-41.gif)
