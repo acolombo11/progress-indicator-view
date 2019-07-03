@@ -58,7 +58,7 @@ name             | format  | default | description
 `stopOnStart`    | boolean | true    | When the `progress` is the same as the starting limit, the animation stops. This limit is `min` if `balanceForward` is true, `max` otherwise.
 `stepToMin`      | boolean | false   | The animation always goes back to the first step instead of going back to the previous one.
 `skipSteps`      | boolean | false   | If the `progress` is faster than the animation, the animation will catch up by skipping steps. *Use `setProgress(progress: Int, animate: Boolean)` if you want to skip the animation altogether.*
-`balanceForward` | boolean | true    | Defines the direction of the animation when the `progress` is between the two central steps (i.e. 50 with a max of 100). *Not valid when the progress is going up and down because the direction of the progress is more signficant, but it still affects `stopOnStart` as explained above.*
+`balanceForward` | boolean | true    | Defines the direction of the animation when the `progress` is between the center steps (i.e. progress is 50 with a max of 100) and there's not a previous direction defined. *Affects `stopOnStart` as explained above.*
 
 I also added three callbacks:
 
