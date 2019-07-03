@@ -26,7 +26,7 @@ allprojects {
 
 This library is AndroidX only, if you are still using Support libraries you can either migrate your app to AndroidX or you can contribute by downgrading the dependencies and subitting a pull-request, which will be merged in a different branch.
 
-## Usage
+### Usage
 
 See [PageIndicatorView](https://github.com/romandanylyk/PageIndicatorView)'s readme for visual configuration, all the `piv_` attributes attributes are still valid (I wouldn't attach this component to a ViewPager though) and in the sample below I used the most relevant ones to display progress.
 
