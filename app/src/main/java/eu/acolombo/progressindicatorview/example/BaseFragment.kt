@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
+import eu.acolombo.progressindicatorview.ProgressIndicatorView
 import kotlinx.android.synthetic.main.fragment_shenzen.*
 import kotlin.random.Random
 
@@ -23,9 +24,13 @@ abstract class BaseFragment : Fragment() {
         textMax?.text = "${progressIndicatorView.max}%"
         textMin?.text = "${progressIndicatorView.min}%"
 
-        progressIndicatorView.onMaxReached = { Log.d(javaClass.name, "MAX" ) }
-        progressIndicatorView.onStepChanged = { step, forward -> Log.d(javaClass.name, "$step $forward" ) }
-        progressIndicatorView.onMinReached = { Log.d(javaClass.name, "MIN" ) }
+        progressIndicatorView.listener = ProgressIndicatorView.Listener(
+            onMaxReached = { Log.d(javaClass.name, "MAX" ) },
+            onStepChanged = { step, forward -> Log.d(javaClass.name, "$step $forward" ) },
+            onMinReached = { Log.d(javaClass.name, "MIN" ) }
+        )
+
+        progressIndicatorView.listener.onMaxReached = { Log.d(javaClass.name, "MAX" ) }
     }
 
     fun setupProgress(progress: Int) {
@@ -66,6 +71,11 @@ abstract class BaseFragment : Fragment() {
                 running = false
                 textProgress?.setOnClickListener { } // atm I don't want to manage stopping and resetting
             }
+        }
+
+        textProgress.setOnLongClickListener {
+            setupProgress(0)
+            true
         }
 
         val animator = ValueAnimator()

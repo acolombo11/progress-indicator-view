@@ -13,6 +13,14 @@ class ProgressIndicatorView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : PageIndicatorView(context, attrs, defStyleAttr) {
 
+    class Listener(
+        var onStepChanged: (step: Int, forward: Boolean) -> Unit = { _, _ -> },
+        var onMinReached: () -> Unit = { },
+        var onMaxReached: () -> Unit = { }
+    )
+
+    var listener = Listener()
+
     private val typedArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ProgressIndicatorView)
     var progress = typedArray.getInt(R.styleable.ProgressIndicatorView_piv_progress, 0)
     var min = typedArray.getInt(R.styleable.ProgressIndicatorView_piv_min, 0)
@@ -23,10 +31,6 @@ class ProgressIndicatorView @JvmOverloads constructor(
     var stepToMin: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_stepToMin, false)
     var skipSteps: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_skipSteps, false)
     var balanceForward: Boolean = typedArray.getBoolean(R.styleable.ProgressIndicatorView_piv_balanceForward, true)
-
-    var onStepChanged: (step: Int, forward: Boolean) -> Unit = { _, _ -> }
-    var onMinReached: () -> Unit = { }
-    var onMaxReached: () -> Unit = { }
 
     fun setProgress(progress: Int, animate: Boolean) {
         this.progress = progress
@@ -72,9 +76,9 @@ class ProgressIndicatorView @JvmOverloads constructor(
                         selection != stepProgress - 1 && skipSteps -> {
                             selection = stepProgress - 1
                             when (progress) {
-                                min -> onMinReached()
-                                max -> onMaxReached()
-                                else -> onStepChanged(selection + 1, step < selection +1)
+                                min -> listener.onMinReached()
+                                max -> listener.onMaxReached()
+                                else -> listener.onStepChanged(selection + 1, step < selection +1)
                             }
                         }
                     }
@@ -85,7 +89,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                     state = if ((progress < next || statePrev == State.BACKWARD && progress <= next) && !stopOnThisStep) {
                         State.BACKWARD
                     } else {
-                        if (step < count - 1) onStepChanged(++step, true) else onMaxReached()
+                        if (step < count - 1) listener.onStepChanged(++step, true) else listener.onMaxReached()
                         statePrev = state
                         State.STOP
                     }
@@ -96,7 +100,7 @@ class ProgressIndicatorView @JvmOverloads constructor(
                     state = if ((progress > prev || statePrev == State.FORWARD && progress >= prev) && !stopOnThisStep) {
                         State.FORWARD
                     } else {
-                        if (step > 1) onStepChanged(--step, false) else onMinReached()
+                        if (step > 1) listener.onStepChanged(--step, false) else listener.onMinReached()
                         statePrev = state
                         State.STOP
                     }
