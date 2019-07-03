@@ -3,7 +3,7 @@ A custom Android view showing determinate progress through a fun/stupid animatio
 
 There are a lot of cool animations for indeterminate progress bars, but there are not many ways to add a little fun to determinate progress bars. I did nothing more than extending [romandanylyk's PageIndicatorView](https://github.com/romandanylyk/PageIndicatorView), adding similar setters and getters to Android's [ProgressBar](https://developer.android.com/reference/android/widget/ProgressBar), and implementing a [finite-state machine](https://en.wikipedia.org/wiki/Finite-state_machine) to manage the animation while progressing.
 
-<img src="docs/gifs/ex-1.jpg" width="360"> <img src="docs/gifs/ex-2.jpg" width="360">
+<img src="docs/gifs/ex-1.gif" width="360"> <img src="docs/gifs/ex-2.gif" width="360">
 
 ## Download &nbsp; [![Release](https://jitpack.io/v/eu.acolombo/progress-indicator-view.svg)](https://jitpack.io/#eu.acolombo/progress-indicator-view)
 
