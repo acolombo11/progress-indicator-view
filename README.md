@@ -28,7 +28,7 @@ This library is AndroidX only, if you are still using Support libraries you can 
 
 ## Usage
 
-See [PageIndicatorView](https://github.com/romandanylyk/PageIndicatorView)'s README, all the `piv_` attributes attributes are still valid (I wouldn't attach it to a ViewPager though) and in the sample below I used the most relevant ones.
+See [PageIndicatorView](https://github.com/romandanylyk/PageIndicatorView)'s readme for visual configuration, all the `piv_` attributes attributes are still valid (I wouldn't attach this component to a ViewPager though) and in the sample below I used the most relevant ones to display progress.
 
 ```xml
 <eu.acolombo.progressindicatorview.ProgressIndicatorView
@@ -47,7 +47,7 @@ See [PageIndicatorView](https://github.com/romandanylyk/PageIndicatorView)'s REA
     app:piv_unselectedColor="@color/colorPrimaryDark" />
 ```
 
-There are also a few `ProgressIndicatorView` specific attributes. They can be accessed in XML under the same prefix, `piv_`, and in kotlin/java through their respective getters/setters. The first group of attributes replicate the `ProgressBar`'ones, while the following are all flags defining the behavior of the component:
+There are also a few `ProgressIndicatorView` specific attributes. They can be accessed in XML under the same prefix, `piv_`, and in kotlin/java through their respective getters/setters. The first group of attributes replicate the `ProgressBar` ones, while the others are boolean flags defining the behavior of the component:
 
 name             | format  | default | description
 ---------------- | ------- | ------- | ------------------
