@@ -11,7 +11,7 @@ There are a lot of cool animations for indeterminate progress bars, but there ar
 Add the dependency in your app  `build.gradle` with the current version number: 
 
 ```gradle
-implementation 'eu.acolombo:progress-indicator-view:0.3.5'
+implementation 'eu.acolombo:progress-indicator-view:1.0.1'
 ```
 
 If you haven't done so already for other libraries, you also have to add JitPack in your root `build.gradle`:
@@ -62,9 +62,9 @@ name             | format  | default | description
 
 I also added three callbacks:
 
-+onStepChanged
-+onMinReached
-+onMaxReached
+- **onStepChanged**
+- **onMinReached**
+- **onMaxReached**
 
 I'm sorry for Java users since I didn't use the usual Listener interface to implement. I made it in a more functional way to be faster and cleaner to use in kotlin.
 
